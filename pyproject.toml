@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "protloc_mex1"
-version = "0.0.3"
+version = "0.0.12"
 authors = [
   { name="Ze Yu Luo", email="1024226968@qq.com" },
 ]
@@ -15,16 +15,18 @@ classifiers = [
     "Development Status :: 3 - Alpha",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
 dependencies = [
-        "biopython~=1.79",
-        "numpy>=1.20.3",
-        "pandas>=1.4.1",
-        "seaborn>=0.11.2",
-        "matplotlib>=3.5.1",
-        "shap~=0.41.0",
+        "biopython==1.79",
+        "numpy==1.24.1",
+        "pandas==1.4.1",
+        "seaborn==0.11.2",
+        "matplotlib==3.5.1",
+        "shap==0.41.0",
+        "gensim==4.2.0"
 ]
 
 [project.urls]
