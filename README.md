@@ -8,7 +8,21 @@ with support by SHAP package warped into ProtLoc-mex1 module，everyone can easi
 
 ## Installation 
 
-The core code of this project has been uploaded to the PyPI repository. To obtain it, please execute the following command:
+This project's core code has been uploaded to the PyPI repository. To get it using a conda virtual environment, follow the steps below:
+
+First, create a new conda environment (you can modify the environment name as needed, here we use "myenv" as an example):
+
+```
+conda create -n myenv python=3.10
+```
+
+Then, activate the environment you just created:
+
+```
+conda activate myenv
+```
+
+Finally, use pip to install 'protloc_mex1' within this environment:
 
 ```
 pip install protloc_mex1
@@ -16,18 +30,19 @@ pip install protloc_mex1
 
 ### Dependencies
 
-ProtLoc-Mex1 requires Python  >= 3.9.
+ProtLoc-Mex1 requires Python  == 3.9 or 3.10.
 
 Below are the Python packages required by ProtLoc-Mex1, which are automatically installed with it:
 
 ```
 dependencies = [
-        "biopython~=1.79",
-        "numpy>=1.20.3",
-        "pandas>=1.4.1",
-        "seaborn>=0.11.2",
-        "matplotlib>=3.5.1",
-        "shap~=0.41.0",
+        "biopython==1.79",
+        "numpy==1.24.1",
+        "pandas==1.4.1",
+        "seaborn==0.11.2",
+        "matplotlib==3.5.1",
+        "shap==0.41.0",
+        "gensim==4.2.0"
 ]
 ```
 
@@ -36,9 +51,12 @@ dependencies = [
 ```
 dependencies = [
        "scikit-learn>=1.0.2",
-       "gensim>=4.2.0"
+       "captum == 0.6.0"
+       "torch == 1.12.1"
 ]
 ```
+
+It is advised to obtain these dependent packages from their respective official sources, while carefully considering the implications of version compatibility.
 
 ## How to use ProtLoc-Mex1
 
@@ -157,6 +175,14 @@ for using pre-training BP and MF model in this article, can see below：
 ```
 ## we are under review, and this example code and file will realse soon
 ```
+
+### IG_calculator
+
+```
+## we are under review, and this example code and file will realse soon
+```
+
+
 
 ## Supplementary materials
 
