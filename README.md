@@ -8,7 +8,7 @@ with support by SHAP package warped into ProtLoc-mex1 module，everyone can easi
 
 ## Installation 
 
-This project's core code has been uploaded to the PyPI repository. To get it using a conda virtual environment, follow the steps below:
+This project's core code has been uploaded to the PyPI repository([protloc-mex1 · PyPI](https://pypi.org/project/protloc-mex1/)). To get it using a conda virtual environment, follow the steps below:
 
 First, create a new conda environment (you can modify the environment name as needed, here we use "myenv" as an example):
 
