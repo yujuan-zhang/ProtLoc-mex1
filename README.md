@@ -192,7 +192,7 @@ The subcellular localization classification models trained for Case 1 and Case 2
 
 ## Citation
 
-As the manuscript is currently under review, the complete core code and pre-trained models of ProtLoc-Mex1 have not been completely released. If you require access to the core code, please contact the author via email at 1024226968@qq.com.
+As the manuscript is currently under review,  If you require any help, please contact the author via email at 1024226968@qq.com.
 
 ### Acknowledgments
 
