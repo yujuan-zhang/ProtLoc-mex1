@@ -152,36 +152,6 @@ print(MF_data)
 
 ```
 
-for using pre-training BP and MF model in this article, can see below：
-
-```
-## we are under review, and this example code and file will realse soon
-```
-
-### classifier_evalute
-
-```
-## we are under review, and this example code and file will realse soon
-```
-
-### SHAP_conduct
-
-```
-## we are under review, and this example code and file will realse soon
-```
-
-### SHAP_plus
-
-```
-## we are under review, and this example code and file will realse soon
-```
-
-### IG_calculator
-
-```
-## we are under review, and this example code and file will realse soon
-```
-
 
 
 ## Supplementary materials
