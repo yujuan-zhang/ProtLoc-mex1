@@ -162,7 +162,11 @@ The subcellular localization classification models trained for Case 1 and Case 2
 
 ## Citation
 
-As the manuscript is currently under review,  If you require any help, please contact the author via email at 1024226968@qq.com.
+If our work has contributed to your research, we would greatly appreciate it if you could cite our work as follows.
+
+Zeyu Luo, Rui Wang, Yawen Sun, Junhao Liu, Zongqing Chen, Yu-Juan Zhang, Interpretable feature extraction and dimensionality reduction in ESM2 for protein localization prediction, Briefings in Bioinformatics, Volume 25, Issue 2, March 2024, bbad534, https://doi.org/10.1093/bib/bbad534.
+
+If you require any help, please contact the author via email at 1024226968@qq.com.
 
 ### Acknowledgments
 
