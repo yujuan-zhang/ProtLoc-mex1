@@ -158,7 +158,7 @@ print(MF_data)
 
 All supplementary materials associated with the article can be found in the Supplementary_material folder. Furthermore, the code and detailed explanations related to the two experimental research cases mentioned in the article, Case 1 and Case 2, are available in their respective directories.
 
-The subcellular localization classification models trained for Case 1 and Case 2 are stored separately in <Case1/Classification and feature filtering module/csae1_localization_model.pkl> and <Case2/Classification and feature filtering module/csae1_localization_model.pkl>. These models accept protein feature inputs identical to those in the demo file and generate corresponding predictions.
+The subcellular localization classification models trained for Case 1 and Case 2 are stored separately in <Case1/Classification and feature filtering module/csae1_localization_model.pkl> and <Case2/Classification and feature filtering module/csae2_localization_model.pkl>. These models accept protein feature inputs identical to those in the demo file and generate corresponding predictions.
 
 ## Citation
 
@@ -173,3 +173,24 @@ If you require any help, please contact the author via email at 1024226968@qq.co
 we are acknowledge the contributions of the open-source community and the 
 
 developers of the Python libraries used in this study. 
+
+
+## Run the bundled classification examples
+
+After installing the dependencies above, clone this repository and run:
+
+```bash
+git clone https://github.com/yujuan-zhang/ProtLoc-mex1.git
+cd ProtLoc-mex1
+python "Case1/Classification and feature filtering module/case1_model_demo.py"
+python "Case2/Classification and feature filtering module/case2_model_demo.py"
+```
+
+Each script reads its neighboring `demo_dataframe.csv` and bundled model.
+Input uses `ID` as the row identifier, `type` as the reference label, and the
+remaining columns as model features in their existing order. Keep the original
+feature schema. Output is `output/demo_predictions.csv` beside each script,
+with `ID`, feature columns, reference `type`, and predicted `predict`.
+The output should have the same number of rows and IDs as its input. These
+examples evaluate already extracted features; they do not start from raw FASTA.
+Runtime has not been measured in this environment.
