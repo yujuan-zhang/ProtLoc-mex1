@@ -177,7 +177,19 @@ developers of the Python libraries used in this study.
 
 ## Run the bundled classification examples
 
-After installing the dependencies above, clone this repository and run:
+For the bundled classification demos, use a separate Python 3.10 environment
+with the model-compatible dependencies below. The saved models were created
+with scikit-learn 1.0.2; scikit-learn 1.7.2 fails to load their tree arrays.
+Do not use the broader `scikit-learn>=1.0.2` constraint above for these pickles.
+These two demos do not require Torch, SHAP, or the full feature-extraction package.
+
+```bash
+conda create -n protloc-demo python=3.10 -y
+conda activate protloc-demo
+python -m pip install numpy==1.24.1 pandas==1.4.1 scipy==1.10.1 scikit-learn==1.0.2 joblib==1.2.0
+```
+
+Then clone this repository and run:
 
 ```bash
 git clone https://github.com/yujuan-zhang/ProtLoc-mex1.git
@@ -193,4 +205,8 @@ feature schema. Output is `output/demo_predictions.csv` beside each script,
 with `ID`, feature columns, reference `type`, and predicted `predict`.
 The output should have the same number of rows and IDs as its input. These
 examples evaluate already extracted features; they do not start from raw FASTA.
-Runtime has not been measured in this environment.
+Both demos were verified with their real bundled models under Python 3.10.4
+and the pinned versions above in a CPU-only Linux container. Case 1 exported
+984 rows and Case 2 exported 1,802 rows; IDs and original feature columns were
+preserved and predictions were non-missing. Runtime was not timed separately
+from environment setup.
