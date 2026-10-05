@@ -1,0 +1,7 @@
+
+# Local environment, generated demo predictions and platform metadata
+/.venv/
+__pycache__/
+*.pyc
+.DS_Store
+Case*/Classification and feature filtering module/output/

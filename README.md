@@ -1,12 +1,88 @@
 # ProtLoc-Mex1
 
-## Introduction ProtLoc-Mex1
+## What it does
 
-This project offers a comprehensive pipeline for the rapid development of subcellular localization prediction and model interpretation. It encompasses 42 amino acid feature characterization algorithms and Gene Ontology (GO) feature extraction based on the Doc2Vec approach. Additionally, two random forest models for protein localization prediction are provided. 
+This repository provides two trained random-forest models for protein
+subcellular localization. Their inputs are:
+
+- **Case 1:** selected amino-acid composition and physicochemical features.
+- **Case 2:** selected amino-acid features plus GO Biological Process and
+  Molecular Function features represented with Doc2Vec.
+
+The model-development and prediction steps are:
+
+```text
+Case 1: protein sequence → amino-acid features → trained random forest → localization
+Case 2: sequence + GO annotations → amino-acid and GO features → trained random forest → localization
+```
+
+The classifiers were trained on labeled feature tables and saved as
+`Case1/Classification and feature filtering module/csae1_localization_model.pkl`
+and `Case2/Classification and feature filtering module/csae2_localization_model.pkl`.
+The demos load these saved models and predict from precomputed features;
+they do not extract features from raw sequences or retrain the classifiers.
+For new proteins, prepare the same feature columns in the same order, using
+the feature representation expected by the saved model.
+
+These two bundled classifiers do **not** take ESM2 embeddings as input.
+The ESM2 feature-extraction and localization-prediction workflow from the
+same study is documented in
+[feature-representation-for-LLMs](https://github.com/yujuan-zhang/feature-representation-for-LLMs),
+using the `protloc-mex-x` feature extractor. The amino-acid and GO feature
+tools supplied here are described below.
+
+## Input
+
+Each case reads its neighboring `demo_dataframe.csv`: `ID`, reference label `type`, then the original model-feature columns. Keep the feature names and order. These demos do not read raw FASTA.
+
+Case 1 uses 21 feature columns and Case 2 uses 165, excluding `ID` and `type`. These columns must match the corresponding saved model; an ESM2 embedding table cannot be substituted.
+
+## Output
+
+`output/demo_predictions.csv` beside each demo script. It contains `ID`, the input feature columns, reference `type` and predicted `predict`. Case 1 has 984 rows; Case 2 has 1,802.
+
+## Try it
+
+### Run the bundled classification examples
+
+For the bundled classification demos, use a separate Python 3.10 environment
+with the model-compatible dependencies below. The saved models were created
+with scikit-learn 1.0.2; scikit-learn 1.7.2 fails to load their tree arrays.
+Do not use the broader `scikit-learn>=1.0.2` constraint above for these pickles.
+These two demos do not require Torch, SHAP, or the full feature-extraction package.
+
+```bash
+git clone https://github.com/yujuan-zhang/ProtLoc-mex1.git
+cd ProtLoc-mex1
+conda create -n protloc-demo python=3.10 -y
+conda activate protloc-demo
+python -m pip install -r requirements.txt
+python "Case1/Classification and feature filtering module/case1_model_demo.py"
+python "Case2/Classification and feature filtering module/case2_model_demo.py"
+```
+
+Each script reads its neighboring `demo_dataframe.csv` and bundled model.
+Input uses `ID` as the row identifier, `type` as the reference label, and the
+remaining columns as model features in their existing order. Keep the original
+feature schema. Output is `output/demo_predictions.csv` beside each script,
+with `ID`, feature columns, reference `type`, and predicted `predict`.
+The output should have the same number of rows and IDs as its input. These
+examples evaluate already extracted features; they do not start from raw FASTA.
+Both demos were verified with their real bundled models under Python 3.10.4
+and the pinned versions above in a CPU-only Linux container. Case 1 exported
+984 rows and Case 2 exported 1,802 rows; IDs and original feature columns were
+preserved and predictions were non-missing. Runtime was not timed separately
+from environment setup.
+
+### Introduction ProtLoc-Mex1
+
+This project offers a comprehensive pipeline for the rapid development of subcellular localization prediction and model interpretation. It encompasses 42 amino acid feature characterization algorithms and Gene Ontology (GO) feature extraction based on the Doc2Vec approach. Additionally, two random forest models for protein localization prediction are provided.
 
 with support by SHAP package warped into ProtLoc-mex1 module，everyone can easily use two random forest models above to get the global explanation and local explanation of the feature (physiochemical characteristics of amino acid sequence and GO annotation semantics)  and model in  protein localization prediction.
 
-## Installation 
+### Feature-extraction package installation
+
+This broader package installation is optional for the two classifier demos above.
 
 This project's core code has been uploaded to the PyPI repository([protloc-mex1 · PyPI](https://pypi.org/project/protloc-mex1/)). To get it using a conda virtual environment, follow the steps below:
 
@@ -28,7 +104,7 @@ Finally, use pip to install 'protloc_mex1' within this environment:
 pip install protloc_mex1
 ```
 
-### Dependencies
+#### Dependencies
 
 ProtLoc-Mex1 requires Python  == 3.9 or 3.10.
 
@@ -46,7 +122,7 @@ dependencies = [
 ]
 ```
 
- and other not automatically installed but also required Python packages：
+and other not automatically installed but also required Python packages：
 
 ```
 dependencies = [
@@ -58,11 +134,11 @@ dependencies = [
 
 It is advised to obtain these dependent packages from their respective official sources, while carefully considering the implications of version compatibility.
 
-## How to use ProtLoc-Mex1
+### How to use ProtLoc-Mex1
 
 ProtLoc-Mex1 includes 6 modules: AA_count, GO_count, classifier_evalute, SHAP_conduct,  SHAP_plus.
 
-###  AA_count
+####  AA_count
 
 In this module, we can perform protein sequence analysis. AA_count include three functions, `dna_sequence_conduct()`, `rna_sequence_conduct()`, and `protein_sequence_conduct()`, they are designed to process DNA, RNA, and protein sequences, respectively, in a given DataFrame `df`.
 
@@ -114,7 +190,7 @@ print(df_protein_processed)
 
 ```
 
-### GO_count
+#### GO_count
 
 GO_count are capability in using Doc2vec to get GO representation，for initialize model can see below：
 
@@ -152,15 +228,13 @@ print(MF_data)
 
 ```
 
-
-
-## Supplementary materials
+### Supplementary materials
 
 All supplementary materials associated with the article can be found in the Supplementary_material folder. Furthermore, the code and detailed explanations related to the two experimental research cases mentioned in the article, Case 1 and Case 2, are available in their respective directories.
 
 The subcellular localization classification models trained for Case 1 and Case 2 are stored separately in <Case1/Classification and feature filtering module/csae1_localization_model.pkl> and <Case2/Classification and feature filtering module/csae2_localization_model.pkl>. These models accept protein feature inputs identical to those in the demo file and generate corresponding predictions.
 
-## Citation
+### Citation
 
 If our work has contributed to your research, we would greatly appreciate it if you could cite our work as follows.
 
@@ -168,45 +242,9 @@ Zeyu Luo, Rui Wang, Yawen Sun, Junhao Liu, Zongqing Chen, Yu-Juan Zhang, Interpr
 
 If you require any help, please contact the author via email at 1024226968@qq.com.
 
-### Acknowledgments
+#### Acknowledgments
 
-we are acknowledge the contributions of the open-source community and the 
+we are acknowledge the contributions of the open-source community and the
 
-developers of the Python libraries used in this study. 
+developers of the Python libraries used in this study.
 
-
-## Run the bundled classification examples
-
-For the bundled classification demos, use a separate Python 3.10 environment
-with the model-compatible dependencies below. The saved models were created
-with scikit-learn 1.0.2; scikit-learn 1.7.2 fails to load their tree arrays.
-Do not use the broader `scikit-learn>=1.0.2` constraint above for these pickles.
-These two demos do not require Torch, SHAP, or the full feature-extraction package.
-
-```bash
-conda create -n protloc-demo python=3.10 -y
-conda activate protloc-demo
-python -m pip install numpy==1.24.1 pandas==1.4.1 scipy==1.10.1 scikit-learn==1.0.2 joblib==1.2.0
-```
-
-Then clone this repository and run:
-
-```bash
-git clone https://github.com/yujuan-zhang/ProtLoc-mex1.git
-cd ProtLoc-mex1
-python "Case1/Classification and feature filtering module/case1_model_demo.py"
-python "Case2/Classification and feature filtering module/case2_model_demo.py"
-```
-
-Each script reads its neighboring `demo_dataframe.csv` and bundled model.
-Input uses `ID` as the row identifier, `type` as the reference label, and the
-remaining columns as model features in their existing order. Keep the original
-feature schema. Output is `output/demo_predictions.csv` beside each script,
-with `ID`, feature columns, reference `type`, and predicted `predict`.
-The output should have the same number of rows and IDs as its input. These
-examples evaluate already extracted features; they do not start from raw FASTA.
-Both demos were verified with their real bundled models under Python 3.10.4
-and the pinned versions above in a CPU-only Linux container. Case 1 exported
-984 rows and Case 2 exported 1,802 rows; IDs and original feature columns were
-preserved and predictions were non-missing. Runtime was not timed separately
-from environment setup.
